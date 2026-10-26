@@ -19,6 +19,12 @@ data, credentials and build output are not committed.
 | [mlops](projects/mlops) | Streamlit chatbot skeleton; the project was never finished | MLOps |
 | [greenit-report](projects/greenit-report) | Group report and presentation | GreenIT / numérique responsable |
 
+## Also here
+
+- `docs/` — school-wide handouts (M2 welcome pack, JUNIA writing guidelines, AI charter)
+- each project keeps its own course material next to the code: `class/` (Big Data),
+  `cours/` (quantum), `cours/` + `readings/` (GreenIT), `research/` (veille)
+
 ## Kept outside this repo
 
 These already live in their own repositories and are not duplicated here:
