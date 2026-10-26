@@ -8,5 +8,8 @@ services, eco-design, and end-of-life/accessibility questions.
 - `..._presentation.pdf` — the defence slides
 - `..._zip` — both, as submitted
 
-Team: Elbakali, Eudeline, Fordelone, Hubert, Kelma, Pousset. Course slides are not
-committed.
+Team: Elbakali, Eudeline, Fordelone, Hubert, Kelma, Pousset.
+
+`cours/` holds the course slides, `readings/` the papers and case studies the
+report draws on (Crawford & Joler on the anatomy of an AI system, and the
+GreenIT case study on digital sobriety).
