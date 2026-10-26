@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architectures of Autonomy Infographic</title>
+    <style>
+        :root {
+            --bg-color: #FFFFFF;
+            --text-color: #2C3E50;
+            --highlight-blue: #0055FF;
+            --accent-red: #FF0040;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --main-card-border: 2px solid var(--highlight-blue);
+            --side-card-border: 1px solid #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hexagonal Background Pattern */
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                linear-gradient(30deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                linear-gradient(150deg, #000 12%, transparent 12.5%, transparent 87%, #000 87.5%, #000),
+                linear-gradient(60deg, #777777 25%, transparent 25.5%, transparent 75%, #777777 75%, #777777),
+                linear-gradient(60deg, #777777 25%, transparent 25.5%, transparent 75%, #777777 75%, #777777);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* The Grid Layout */
+        .infographic-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px 1fr; /* Left, Center (fixed width for consistency), Right */
+            gap: 2rem;
+            position: relative;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .infographic-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .connector-line {
+                display: none;
+            }
+            .card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Central Connector Line */
+        .connector-line {
+            grid-column: 2;
+            grid-row: 1 / span 4;
+            position: absolute;
+            left: 50%;
+            top: 40px; /* Start slightly below top of first card */
+            bottom: 40px; /* End slightly above bottom of last card */
+            width: 4px;
+            background: linear-gradient(to bottom, var(--highlight-blue), var(--highlight-blue) 80%, var(--accent-red));
+            transform: translateX(-50%);
+            z-index: 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 85, 255, 0.3);
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #57606a;
+        }
+
+        /* Main Center Cards */
+        .card.main-card {
+            border: var(--main-card-border);
+            box-shadow: 0 10px 25px -5px rgba(0, 85, 255, 0.15);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 180px;
+            text-align: center;
+        }
+
+        .card.main-card h3 {
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--highlight-blue);
+        }
+        
+        /* Side Cards */
+        .card.side-card {
+            border: var(--side-card-border);
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--accent-red);
+            height: fit-content;
+            align-self: center; /* Vertically center relative to the grid row */
+        }
+        
+        .card.side-card.right {
+            border-left: none;
+            border-right: 4px solid var(--accent-red);
+            text-align: right;
+        }
+        
+        .card.side-card.right h3 {
+            justify-content: flex-end;
+        }
+
+        /* Specific Grid Placements */
+        
+        /* Row 1 */
+        .pos-left-1 { grid-column: 1; grid-row: 1; }
+        .pos-center-1 { grid-column: 2; grid-row: 1; }
+        .pos-right-1 { grid-column: 3; grid-row: 1; }
+
+        /* Row 2 */
+        .pos-left-2 { grid-column: 1; grid-row: 2; }
+        .pos-center-2 { grid-column: 2; grid-row: 2; }
+        .pos-right-2 { grid-column: 3; grid-row: 2; }
+
+        /* Row 3 */
+        .pos-left-3 { grid-column: 1; grid-row: 3; }
+        .pos-center-3 { grid-column: 2; grid-row: 3; }
+        .pos-right-3 { grid-column: 3; grid-row: 3; }
+
+        /* Row 4 */
+        .pos-center-4 { grid-column: 2; grid-row: 4; }
+
+
+        /* Footer */
+        .footer-goal {
+            grid-column: 1 / -1;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .footer-goal h2 {
+            color: var(--highlight-blue);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-goal p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Icons (Simple CSS Shapes or ASCII for lightweight prototype) */
+        .icon-circle {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-pattern"></div>
+
+    <div class="container">
+        <h1>Architectures of Autonomy</h1>
+
+        <div class="infographic-grid">
+            <!-- The Connector Line -->
+            <div class="connector-line"></div>
+
+            <!-- ROW 1 -->
+            <!-- Left -->
+            <div class="card side-card pos-left-1">
+                <h3>Digital Trust Shift</h3>
+                <p>Moving from implicit trust to explicit verification. Redefining how users interact with digital services.</p>
+            </div>
+            <!-- Center -->
+            <div class="card main-card pos-center-1">
+                <h3>The Doctrine</h3>
+                <p><strong>Realigning State Relationship & The Legal Shield</strong></p>
+                <p>Establishing the fundamental rules of engagement. Sovereignty is not just a feature, it's the foundation.</p>
+            </div>
+            <!-- Right -->
+            <div class="card side-card right pos-right-1">
+                <h3>SecNumCloud 3.2</h3>
+                <p><strong>The Trusted Fortress</strong></p>
+                <p>Meeting the highest standards of security compliance to ensure sovereign data protection.</p>
+            </div>
+
+            <!-- ROW 2 -->
+            <!-- Left -->
+            <div class="card side-card pos-left-2">
+                <h3>Open Source Strategy</h3>
+                <p>Transparency as a security feature. leveraging community auditing to build resilient systems.</p>
+            </div>
+            <!-- Center -->
+            <div class="card main-card pos-center-2">
+                <h3>The Architecture</h3>
+                <p><strong>Zone A & Zone B / SecNumCloud 3.2</strong></p>
+                <p>Structuring the environment. Separation of concerns to isolate critical assets from public interfaces.</p>
+            </div>
+            <!-- Right -->
+            <div class="card side-card right pos-right-2">
+                <h3>The AI Frontier</h3>
+                <p>Integrating autonomous agents within secure boundaries. AI that serves, not surveils.</p>
+            </div>
+
+            <!-- ROW 3 -->
+            <!-- Left -->
+            <div class="card side-card pos-left-3">
+                <h3>Longevity Design</h3>
+                <p>Building for decades, not release cycles. Systems designed to survive hardware evolution.</p>
+            </div>
+            <!-- Center -->
+            <div class="card main-card pos-center-3">
+                <h3>The Philosophy</h3>
+                <p><strong>Governance First / Boring is Good</strong></p>
+                <p>Stability over hype. Predictable, reliable governance mechanisms ensure long-term viability.</p>
+            </div>
+            <!-- Right -->
+            <div class="card side-card right pos-right-3">
+                <h3>Blockchain Nuance</h3>
+                <p>Using distributed ledgers only where necessary. Verifiability without unnecessary overhead.</p>
+            </div>
+
+            <!-- ROW 4 -->
+            <!-- Center Only -->
+            <div class="card main-card pos-center-4">
+                <h3>The Future</h3>
+                <p><strong>Verifiable Buses / eIDAS</strong></p>
+                <p>Standardized, interoperable identity and communication layers for the European ecosystem.</p>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-goal">
+            <h2>The Ultimate Goal</h2>
+            <p>To create a sovereign, resilient, and user-centric digital ecosystem that operates independently of foreign influence.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
