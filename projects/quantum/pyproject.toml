@@ -1,0 +1,15 @@
+[project]
+name = "quantum"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.1.0",
+    "matplotlib>=3.10.8",
+    "pulser>=1.6.2,<1.7.0",
+    "qubo-solver>=0.5.0",
+    "qiskit>=2.3.0",
+    "qiskit-aer>=0.17.2",
+    "qiskit-ibm-runtime>=0.45.0",
+]
