@@ -8,5 +8,7 @@ Two lab sessions from the quantum computing course.
 - `grover_lab/` — Grover's algorithm on Qiskit, with the circuits as rendered
   images (`circuit.png`, `grover.png`).
 
-Lecture slides are not committed. The environment is declared in `mise.toml` /
+Lecture material lives in `cours/` (course slides) and `lab/` (the DWave/Pasqal lab
+assignment, whose text is also alongside as `.md`). PDFs were recompressed with
+Ghostscript at `/printer` quality. The environment is declared in `mise.toml` /
 `pyproject.toml` / `uv.lock`.
