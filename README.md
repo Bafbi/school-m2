@@ -3,8 +3,9 @@
 One repository per school year. This one holds the 2025/2026 (M2) work at
 ISEN/Junia: projects, reports and labs.
 
-Lecture material (course PDFs, slides) is deliberately **not** committed — it is
-re-downloadable from the school portal and would only bloat clones.
+Course handouts are kept, per project (`class/`, `cours/`), compressed with
+Ghostscript at `/printer` quality — same page count, 50–90% smaller. Generated
+data, credentials and build output are not committed.
 
 ## Projects
 
@@ -33,5 +34,8 @@ These already live in their own repositories and are not duplicated here:
   the analysis-ready parquet tables, while the raw Minestom JSON is rebuilt with
   the scripts in `projet/scripts/`. Credentials for that pipeline (`kaggle.json`)
   are excluded on purpose.
+- PDFs in this repository are the originals run through
+  `gs -dPDFSETTINGS=/printer` (`~/prep/scripts/compress_pdfs.py`); page counts and
+  layout are unchanged.
 - Earlier years live in their own repositories (`school-m1-*`, `cir2-*`) and in
   `summer-*` for the ISEN 3 final-year project.
