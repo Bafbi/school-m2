@@ -1,0 +1,11 @@
+[tools]
+typst = "latest"
+uv = "latest"
+
+
+[settings]
+python.uv_venv_auto = true
+
+
+[env]
+_.python.venv = { path = ".venv" }
