@@ -18,7 +18,8 @@ projet_spark.ipynb                            the analysis on top of it
 
 `projet/README.md` documents the `mise run` entry points and the Java 25 / Java 21
 split (generator vs Spark). `lab/` is the separate Hadoop-with-Docker lab
-(`docker-compose.yml` + `hadoop.env`).
+(`docker-compose.yml` + `hadoop.env`), and `class/` holds the course handouts
+(Big Data, Hadoop, the PySpark lab sheets).
 
 ## Not in the repo
 
