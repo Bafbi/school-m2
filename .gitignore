@@ -1,0 +1,24 @@
+# environment / build noise
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.mypy_cache/
+node_modules/
+.cache/
+target/
+dist/
+build/
+
+# generated data (rebuild with the project's scripts)
+data/raw/
+data/kaggle/
+
+# credentials
+kaggle.json
+.env
+.env.*
+
+# editor / OS
+.DS_Store
+*.swp
