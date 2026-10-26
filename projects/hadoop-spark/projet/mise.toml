@@ -1,0 +1,95 @@
+[tools]
+gradle = "9"
+java = "25"
+python = "3.12"
+uv = "latest"
+
+[tool_alias.java.versions]
+generator = "25"
+spark = "21"
+
+[tasks.generate-data]
+description = "Generate raw Minestom dataset with Java 25"
+sources = [
+	"scripts/generate_minestom_data.sh",
+	"minestom-generator.env",
+]
+outputs = [
+	"data/raw/minestom/_manifest.json",
+]
+run = "./scripts/generate_minestom_data.sh"
+
+[tasks.ingest-data]
+description = "Build curated Spark parquet tables with Java 21"
+depends = ["generate-data"]
+sources = [
+	"scripts/run_minestom_ingestion.sh",
+	"scripts/run_minestom_ingestion.py",
+	"data/raw/minestom/**",
+]
+outputs = [
+	"data/curated/meta_manifest",
+	"data/curated/dim_item",
+	"data/curated/fact_loot_entry",
+]
+run = "./scripts/run_minestom_ingestion.sh"
+
+[tasks.refresh-data]
+description = "Generate raw data then build curated tables"
+depends = ["generate-data", "ingest-data"]
+
+[tasks.validate-data]
+description = "Validate curated parquet tables and compute quality profile"
+depends = ["ingest-data"]
+sources = [
+	"scripts/run_curated_validation.sh",
+	"scripts/validate_curated_tables.py",
+	"data/curated/**",
+]
+outputs = [
+	"data/curated/validation_profile.csv",
+]
+run = "./scripts/run_curated_validation.sh"
+
+[tasks.kaggle-prepare]
+description = "Prepare Kaggle dataset staging directory"
+depends = ["ingest-data"]
+sources = [
+	"scripts/prepare_kaggle_dataset.sh",
+	"scripts/generate_table_counts.py",
+	"data/curated/**",
+	"data/raw/minestom/_manifest.json",
+]
+outputs = [
+	"data/kaggle/minecraft-item-complexity-minestom/dataset-metadata.json",
+	"data/kaggle/minecraft-item-complexity-minestom/curated.zip",
+	"data/kaggle/minecraft-item-complexity-minestom/minestom_manifest.json",
+	"data/kaggle/minecraft-item-complexity-minestom/table_counts.csv",
+]
+run = "./scripts/prepare_kaggle_dataset.sh"
+
+[tasks.kaggle-publish]
+description = "Create/version Kaggle dataset from staging"
+depends = ["kaggle-prepare"]
+run = "./scripts/publish_kaggle_dataset.sh"
+
+[tasks.kaggle-publish-msg]
+description = "Create/version Kaggle dataset with custom version message"
+depends = ["kaggle-prepare"]
+usage = '''
+arg "<message>" help="Kaggle version message"
+'''
+run = "VERSION_MESSAGE='${usage_message?}' ./scripts/publish_kaggle_dataset.sh"
+
+[tasks.dataset-release]
+description = "Generate, ingest, stage, then publish dataset to Kaggle"
+depends = ["refresh-data", "kaggle-prepare"]
+run = "./scripts/publish_kaggle_dataset.sh"
+
+[tasks.dataset-release-msg]
+description = "Generate, ingest, stage, then publish with custom Kaggle message"
+depends = ["refresh-data", "kaggle-prepare"]
+usage = '''
+arg "<message>" help="Kaggle version message"
+'''
+run = "VERSION_MESSAGE='${usage_message?}' ./scripts/publish_kaggle_dataset.sh"
